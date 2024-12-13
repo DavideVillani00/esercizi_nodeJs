@@ -1,37 +1,33 @@
 import express from "express";
 import morgan from "morgan";
-import { conn } from "./controllers/db_connection.js";
+import {
+  changeOneById,
+  getAll,
+  getOneById,
+  createOne,
+  deleteOneById,
+} from "./controllers/controls.js";
 
 const app = express();
 app.use(morgan("dev"));
+app.use(express.json());
 
 const port = 3000;
 
 // prendi tutti i pianeti
-app.get("/planets", (req, res) => {
-  conn.query("SELECT * FROM planets", (err, result) => {
-    if (err)
-      throw res.status(500).json({ msg: "errore nel caricamento dei pianeti" });
-    res.status(200).json(result);
-  });
-});
+app.get("/planets", getAll);
 
 // prendi un pianeta con id
-app.get("/planets/:id", (req, res) => {
-  const { id } = req.params;
-  conn.query("SELECT * FROM planets WHERE id= ?", [id], (err, result) => {
-    if (err)
-      throw res.status(500).json({ msg: "errore nel caricamento del pianeta" });
-    // in caso si inserisca un id che non esiste
-    if (!result.length > 0)
-      throw res.status(404).json({ msg: "pianeta non trovato" });
-    res.status(200).json(result);
-  });
-});
+app.get("/planets/:id", getOneById);
 
-// app.post("planets", (req, res) => {
-//   const { name } = req.body();
-// });
+// crea un nuovo pianeta
+app.post("/planets", createOne);
+
+// modifica un pianeta
+app.put("/planets", changeOneById);
+
+// elimina un pianeta
+app.delete("/planets/:id", deleteOneById);
 
 app.listen(port, () => {
   console.log(`applicazione avviata su http://localhost:${port}`);
