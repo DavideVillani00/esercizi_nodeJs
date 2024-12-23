@@ -1,7 +1,7 @@
 const signUpForm = document.querySelector("#signUpForm");
-const logIn = document.querySelector("#logIn");
+const logInForm = document.querySelector("#logInForm");
 const signUp = document.querySelector("#signUp");
-const logInUp = document.querySelector("#logInUp");
+const logIn = document.querySelector("#logIn");
 
 // signUp
 signUpForm.addEventListener("submit", async (e) => {
@@ -10,11 +10,11 @@ signUpForm.addEventListener("submit", async (e) => {
   const ripPassword = document.querySelector("#signUpRepPass").value;
   const nome = document.querySelector("#signUpName").value;
 
+  // check nome
+  if (!nome) return (signUp.textContent = "Il nome non è valido");
   //   check password
-  if (password !== ripPassword || password === "") {
-    // reset input
-    throw (signUp.textContent = "Le password non coincidono");
-  }
+  if (password !== ripPassword || !password)
+    return (signUp.textContent = "Le password non coincidono");
 
   //   fetch dati
   try {
@@ -29,6 +29,32 @@ signUpForm.addEventListener("submit", async (e) => {
     signUp.textContent = data.msg;
   } catch (err) {
     signUp.textContent = "Errore nella creazione del profilo";
+    throw err;
+  }
+});
+
+// login
+logInForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const nome = document.querySelector("#logInName").value;
+  const password = document.querySelector("#logInPass").value;
+
+  // fetch dati
+  try {
+    // manda dati
+    const response = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nome, password }),
+    });
+    const data = await response.json();
+    logIn.textContent = data.msg;
+
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+    }
+  } catch (err) {
+    logIn.textContent = "C'è stato un errore riprova più tardi";
     throw err;
   }
 });
