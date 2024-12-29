@@ -51,6 +51,7 @@ logInForm.addEventListener("submit", async (e) => {
     logIn.textContent = data.msg;
 
     if (data.token) {
+      console.log(data.token);
       localStorage.setItem("token", data.token);
     }
   } catch (err) {

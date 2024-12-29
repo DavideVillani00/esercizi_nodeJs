@@ -60,11 +60,11 @@ app.post("/login", async (req, res) => {
     if (!login)
       return res.status(400).json({ msg: "la password non è corretta" });
     // admin
-    if (nome === "admin") {
-      const token = jwt.sign({ nome }, SECRET_KEY, { expiresIn: "1h" });
-      return res.status(200).json({ msg: "benvenuto admin", token });
-    }
-    res.status(200).json({ msg: "accesso consentito" });
+    // if (nome === "admin") {
+    const token = jwt.sign({ nome }, SECRET_KEY, { expiresIn: "1h" });
+    //   return res.status(200).json({ msg: "benvenuto admin", token });
+    // }
+    res.status(200).json({ msg: "accesso consentito", token });
   } catch (err) {
     console.error("errore nel login" + err);
     throw res.status(500).json({ msg: "Errore del server, riprova più tardi" });
