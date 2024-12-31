@@ -54,6 +54,7 @@ logInForm.addEventListener("submit", async (e) => {
       console.log(data.token);
       localStorage.setItem("token", data.token);
     }
+    return window.location.assign("./home.html");
   } catch (err) {
     logIn.textContent = "C'è stato un errore riprova più tardi";
     throw err;

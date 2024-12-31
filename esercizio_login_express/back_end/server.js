@@ -3,21 +3,15 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const port = 3000;
-const utenti = [];
+const utenti = require("./dbUtenti");
+
 const SECRET_KEY = "chiavesegreta";
 
+// const checkToken = (req, res, next) => {};
 // impostazioni app
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-// per generare l'admin
-(async function () {
-  const nome = "admin";
-  const password = "admin";
-  const passHash = await bcrypt.hash(password, 10);
-  utenti.push({ nome, password: passHash });
-})();
 
 // per controllare gli utenti (debug)
 app.get("/utenti", (req, res) => {
