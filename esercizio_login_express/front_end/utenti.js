@@ -3,15 +3,16 @@ update.addEventListener("click", async () => {
   const usersList = document.querySelector("#usersList");
   try {
     // manda dati
-    const response = await fetch("http://localhost:3000/utenti", {
+    const response = await fetch("http://localhost:3000/api/utenti", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
     const data = await response.json();
-    console.log(data);
+    // creazione di un nuovo array con i nomi degli utenti
     const users = await data.map(({ nome }) => {
       return nome;
     });
+    // creazione lista togliendo l'admin
     users.forEach((user) => {
       if (user !== "admin") {
         const li = document.createElement("li");
@@ -19,7 +20,6 @@ update.addEventListener("click", async () => {
         usersList.appendChild(li);
       }
     });
-    console.log(users);
   } catch (err) {
     throw err;
   }

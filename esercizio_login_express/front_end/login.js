@@ -19,7 +19,7 @@ signUpForm.addEventListener("submit", async (e) => {
   //   fetch dati
   try {
     // manda dati
-    const response = await fetch("http://localhost:3000/signup", {
+    const response = await fetch("http://localhost:3000/api/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nome, password }),
@@ -42,7 +42,7 @@ logInForm.addEventListener("submit", async (e) => {
   // fetch dati
   try {
     // manda dati
-    const response = await fetch("http://localhost:3000/login", {
+    const response = await fetch("http://localhost:3000/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nome, password }),
@@ -51,7 +51,6 @@ logInForm.addEventListener("submit", async (e) => {
     logIn.textContent = data.msg;
 
     if (data.token) {
-      console.log(data.token);
       localStorage.setItem("token", data.token);
     }
     return window.location.assign("./home.html");

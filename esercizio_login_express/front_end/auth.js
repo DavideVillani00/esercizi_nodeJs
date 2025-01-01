@@ -6,9 +6,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const response = fetch("http://localhost/3000/admin");
+    const response = await fetch("http://localhost:3000/auth", {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await response.json();
+    const nomeUtente = data.nome;
+    const ruoloUtente = data.ruolo;
   } catch (err) {
     alert(err);
     window.location.assign("./login.html");
   }
 });
+
+// non funziona
+module.exports = nomeUtente;
