@@ -6,13 +6,17 @@
     <title>Homepage</title>
   </head>
   <body>
-    <h1 id="welcomeMsg"></h1>
     <h1>Homepage</h1>
-    <a href="./utenti.html" class="adminObj" style="display: none"></a>
-    <p class="adminObj"></p>
-    <p class="adminObj"></p>
-    <p class="adminObj"></p>
+    <h2 id="welcomeMsg"></h2>
+    <a href="./utenti.html" class="adminObj" style="display: none"
+      >Admin Page</a
+    >
     <script src="./auth.js"></script>
+    <script>
+      document.querySelector(
+        "#welcomeMsg"
+      ).textContent = `Benvenuto ${sessionStorage.getItem("nomeUtente")}`;
+    </script>
     <script src="./adminPage.js"></script>
   </body>
 </html>

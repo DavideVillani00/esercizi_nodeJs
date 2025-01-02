@@ -1,3 +1,4 @@
+const nomeUtente = require("./auth");
 const update = document.querySelector("#update");
 update.addEventListener("click", async () => {
   const usersList = document.querySelector("#usersList");

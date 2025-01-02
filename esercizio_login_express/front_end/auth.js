@@ -11,13 +11,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
-    const nomeUtente = data.nome;
-    const ruoloUtente = data.ruolo;
+    sessionStorage.setItem("nomeUtente", data.nome);
+    sessionStorage.setItem("ruoloUtente", data.ruolo);
   } catch (err) {
     alert(err);
     window.location.assign("./login.html");
   }
 });
-
-// non funziona
-module.exports = nomeUtente;
