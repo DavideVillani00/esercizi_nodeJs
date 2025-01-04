@@ -2,6 +2,27 @@ const signUpForm = document.querySelector("#signUpForm");
 const logInForm = document.querySelector("#logInForm");
 const signUp = document.querySelector("#signUp");
 const logIn = document.querySelector("#logIn");
+const logInDiv = document.querySelector("#logInDiv");
+const signUpDiv = document.querySelector("#signUpDiv");
+const logInTransfer = document.querySelector("#logInTransfer");
+const signUpTransfer = document.querySelector("#signUpTransfer");
+let sub;
+// da sistemare
+
+signUpTransfer.addEventListener("click", () => {
+  sub = false;
+});
+logInTransfer.addEventListener("click", () => {
+  sub = true;
+});
+
+if (sub === true) {
+  signUpDiv.style.display = "none";
+  logInDiv.style.display = "inline-block";
+} else if (sub === false) {
+  signUpDiv.style.display = "inline-block";
+  logInDiv.style.display = "none";
+}
 
 // signUp
 signUpForm.addEventListener("submit", async (e) => {

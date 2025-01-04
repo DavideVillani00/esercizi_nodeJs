@@ -11,12 +11,14 @@
     <a href="./utenti.html" class="adminObj" style="display: none"
       >Admin Page</a
     >
-    <script src="./auth.js"></script>
-    <script>
-      document.querySelector(
-        "#welcomeMsg"
-      ).textContent = `Benvenuto ${sessionStorage.getItem("nomeUtente")}`;
+    <script src="../authentications/auth.js" defer></script>
+    <script src="../authentications/adminPage.js" defer></script>
+    <script defer>
+      document.addEventListener("authReady", () => {
+        document.querySelector(
+          "#welcomeMsg"
+        ).textContent = `Benvenuto ${sessionStorage.getItem("nomeUtente")}`;
+      });
     </script>
-    <script src="./adminPage.js"></script>
   </body>
 </html>

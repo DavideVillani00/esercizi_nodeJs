@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const token = localStorage.getItem("token");
   if (!token) {
     alert("esegui il login");
-    return window.location.assign("./login.html");
+    return window.location.assign("../src/login.html");
   }
 
   try {
@@ -13,8 +13,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const data = await response.json();
     sessionStorage.setItem("nomeUtente", data.nome);
     sessionStorage.setItem("ruoloUtente", data.ruolo);
+    document.dispatchEvent(new Event("authReady"));
   } catch (err) {
     alert(err);
-    window.location.assign("./login.html");
+    window.location.assign("../src/login.html");
   }
 });

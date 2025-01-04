@@ -1,7 +1,7 @@
-const nomeUtente = require("./auth");
 const update = document.querySelector("#update");
 update.addEventListener("click", async () => {
   const usersList = document.querySelector("#usersList");
+  usersList.innerHTML = "";
   try {
     // manda dati
     const response = await fetch("http://localhost:3000/api/utenti", {
