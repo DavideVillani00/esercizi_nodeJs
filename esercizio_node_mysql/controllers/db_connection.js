@@ -1,10 +1,12 @@
 import mysql from "mysql2";
+require("dotenv").config();
+const DB_PASS = process.env.DB_PASS;
 
 // crea la connessione
 export const conn = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "root.Dado2000",
+  password: DB_PASS,
 });
 
 // connettiti al server
