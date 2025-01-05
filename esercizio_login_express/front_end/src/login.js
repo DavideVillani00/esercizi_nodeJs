@@ -7,29 +7,33 @@ const signUpDiv = document.querySelector("#signUpDiv");
 const logInTransfer = document.querySelector("#logInTransfer");
 const signUpTransfer = document.querySelector("#signUpTransfer");
 let sub;
-// da sistemare
 
+// trasferimento da signup<->login
 signUpTransfer.addEventListener("click", () => {
   sub = false;
+  checkIsSub();
 });
 logInTransfer.addEventListener("click", () => {
   sub = true;
+  checkIsSub();
 });
 
-if (sub === true) {
-  signUpDiv.style.display = "none";
-  logInDiv.style.display = "inline-block";
-} else if (sub === false) {
-  signUpDiv.style.display = "inline-block";
-  logInDiv.style.display = "none";
-}
+const checkIsSub = () => {
+  if (sub === true) {
+    signUpDiv.style.display = "none";
+    logInDiv.style.display = "inline-block";
+  } else if (sub === false) {
+    signUpDiv.style.display = "inline-block";
+    logInDiv.style.display = "none";
+  }
+};
 
 // signUp
 signUpForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const password = document.querySelector("#signUpPass").value;
-  const ripPassword = document.querySelector("#signUpRepPass").value;
-  const nome = document.querySelector("#signUpName").value;
+  let password = document.querySelector("#signUpPass").value;
+  let ripPassword = document.querySelector("#signUpRepPass").value;
+  let nome = document.querySelector("#signUpName").value;
 
   // check nome
   if (!nome) return (signUp.textContent = "Il nome non è valido");
@@ -48,6 +52,9 @@ signUpForm.addEventListener("submit", async (e) => {
     // recupera dati
     const data = await response.json();
     signUp.textContent = data.msg;
+    document.querySelector("#signUpName").value = "";
+    document.querySelector("#signUpPass").value = "";
+    document.querySelector("#signUpRepPass").value = "";
   } catch (err) {
     signUp.textContent = "Errore nella creazione del profilo";
     throw err;
