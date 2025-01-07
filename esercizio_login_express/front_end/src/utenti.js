@@ -4,7 +4,7 @@ update.addEventListener("click", async () => {
   usersList.innerHTML = "";
   try {
     // manda dati
-    const response = await fetch("http://localhost:3000/api/utenti", {
+    const response = await fetch("http://localhost:3000/api/users", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
