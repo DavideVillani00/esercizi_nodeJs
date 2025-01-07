@@ -10,17 +10,21 @@ update.addEventListener("click", async () => {
     });
     const data = await response.json();
     // creazione di un nuovo array con i nomi degli utenti
-    const users = await data.map(({ nome }) => {
-      return nome;
-    });
-    // creazione lista togliendo l'admin
-    users.forEach((user) => {
-      if (user !== "admin") {
-        const li = document.createElement("li");
-        li.textContent = user;
-        usersList.appendChild(li);
-      }
-    });
+    if (data.lenght > 1) {
+      const users = await data.map(({ nome }) => {
+        return nome;
+      });
+      // creazione lista togliendo l'admin
+      users.forEach((user) => {
+        if (user !== "admin") {
+          const li = document.createElement("li");
+          li.textContent = user;
+          usersList.appendChild(li);
+        }
+      });
+    } else {
+      usersList.innerHTML = "<p>al momento non ci sono utenti registrati</p>";
+    }
   } catch (err) {
     throw err;
   }

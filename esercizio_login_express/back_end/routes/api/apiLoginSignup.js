@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const utenti = require("../../dbUtenti");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const conn = require("../../database/dbConnection");
@@ -45,21 +44,26 @@ router.post("/login", async (req, res) => {
     const { nome, password } = req.body;
 
     // prendi l'utente
-    const utente = utenti.find((u) => {
-      return u.nome === nome;
+    const response = await fetch("http://localhost:3000/api/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nome }),
     });
-    // controlli
-    if (!utente) return res.status(404).json({ msg: "utente non trovato" });
+    const dataUser = await response.json();
 
-    const login = await bcrypt.compare(password, utente.password);
+    // controlli
+    if (!dataUser.length > 0)
+      return res.status(404).json({ msg: "utente non trovato" });
+
+    const { user_name, user_pass, user_role } = await dataUser[0];
+
+    const login = await bcrypt.compare(password, user_pass);
     if (!login)
       return res.status(400).json({ msg: "la password non è corretta" });
     // admin
-    const token = jwt.sign(
-      { nome: utente.nome, ruolo: utente.ruolo },
-      SECRET_KEY,
-      { expiresIn: "1h" }
-    );
+    const token = jwt.sign({ nome: user_name, ruolo: user_role }, SECRET_KEY, {
+      expiresIn: "1h",
+    });
     res.status(200).json({ msg: "accesso consentito", token });
   } catch (err) {
     console.error("errore nel login" + err);
